@@ -108,7 +108,10 @@ class Parser:
                 tr_info["period"] = period_match.group(1).replace("&nbsp;", " ").strip()
             tr_list.append(tr_info)
 
-        pattern = re.compile(r"<TD\b[^>]*>(.*?)\s*\((\d+)\)</TD>", flags=re.IGNORECASE)
+        pattern = re.compile(
+            pattern=r"<TD\b[^>]*>\s*(.*?)\s*\(([-A-Za-zА-Яа-я0-9]+)\)\s*</TD>",
+            flags=re.IGNORECASE,
+        )
 
         last = None
         for i, tr in enumerate(tr_list):
@@ -134,7 +137,7 @@ class Parser:
         foot = html[tr_list[-1]["end"] :]
 
         result = []
-        for row in filter(lambda x: "period" in x, tr_list):
+        for row in filter(lambda x: "code" in x, tr_list):
             start = row["start"]
             end = tr_list[row["closed"]]["end"]
             block_html = html[start:end]
@@ -235,7 +238,7 @@ class Parser:
                 if not html:
                     rep.html = None
                 result.append(rep)
-        return result
+        return sorted(result, key=lambda x: (x.name, x.period))
 
     async def get_report(self, guid: UUID):
         path = path_join(self.cache_dir, self.guid)
