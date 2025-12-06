@@ -1,6 +1,6 @@
 # Установка и запуск payroll-sender на Windows без консоли
 
-Эта инструкция поможет пользователю Windows настроить локальный запуск приложения без видимого окна терминала.
+Эта инструкция поможет пользователю Windows настроить локальный запуск приложения **payroll-sender** без видимого окна терминала и с автоматической загрузкой переменных из `.env`.
 
 ---
 
@@ -38,21 +38,22 @@
    ```powershell
    pip install --upgrade pip
    pip install -r requirements.txt
+   pip install python-dotenv  # для чтения .env
    ```
 
 ---
 
-## 3. Настройка переменных окружения
+## 3. Создание файла .env
 
-Создайте файл `.env` в корне проекта или задайте переменные вручную через PowerShell:
+Создайте файл `.env` в корне проекта со следующими переменными:
 
-```powershell
-$env:RP_CACHE_DIR="C:\Users\<User>\payroll_cache"
-$env:RP_LOG_LEVEL="info"
-$env:RP_EMAIL_HOST="smtp.example.com"
-$env:RP_EMAIL_PORT=587
-$env:RP_EMAIL_USERNAME="user@example.com"
-$env:RP_EMAIL_PASSWORD="password"
+```
+RP_CACHE_DIR=C:\Users\<User>\payroll_cache
+RP_LOG_LEVEL=info
+RP_EMAIL_HOST=smtp.example.com
+RP_EMAIL_PORT=587
+RP_EMAIL_USERNAME=user@example.com
+RP_EMAIL_PASSWORD=password
 ```
 
 > Замените `<User>` и данные SMTP на ваши реальные значения.
@@ -66,12 +67,43 @@ $env:RP_EMAIL_PASSWORD="password"
 ```python
 import logging
 import uvicorn
+from dotenv import load_dotenv
+import os
+
+# Загружаем переменные из .env
+load_dotenv()
 
 # Логирование в файл
 logging.basicConfig(filename="payroll.log", level=logging.INFO)
 logging.info("Starting payroll-sender")
 
+# Пример использования переменных из .env
+cache_dir = os.getenv("RP_CACHE_DIR", "./out")
+log_level = os.getenv("RP_LOG_LEVEL", "info")
+logging.info(f"Cache dir: {cache_dir}, Log level: {log_level}")
+
+if __name__ == "__main__":import logging
+import uvicorn
+from dotenv import load_dotenv
+import os
+
+# Загружаем .env
+load_dotenv()
+
+# Настройка логов
+logging.basicConfig(filename="payroll.log", level=logging.INFO)
+logging.info("Starting payroll-sender")
+
 if __name__ == "__main__":
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=8000,
+        log_level="info",
+        access_log=True,
+        # Обязательно, чтобы pythonw не терял логи
+        log_config=None
+    )
     uvicorn.run("main:app", host="0.0.0.0", port=8000)
 ```
 
@@ -90,7 +122,7 @@ C:\Users\<User>\payroll-sender\venv\Scripts\pythonw.exe C:\Users\<User>\payroll-
 
 3. Нажмите **Далее** → дайте имя ярлыку, например `Payroll Sender` → **Готово**  
 
-Теперь двойной клик по ярлыку запустит приложение **без видимого окна терминала**.
+Теперь двойной клик по ярлыку запустит приложение **без видимого окна терминала**, а переменные из `.env` будут автоматически считаны.
 
 ---
 
@@ -111,5 +143,4 @@ C:\Users\<User>\payroll-sender\venv\Scripts\pythonw.exe C:\Users\<User>\payroll-
 
 ## ✅ Готово!
 
-Теперь приложение работает локально на Windows без видимой консоли и с логированием.
-
+Теперь приложение работает локально на Windows без видимой консоли и с автоматической загрузкой переменных из `.env`.
