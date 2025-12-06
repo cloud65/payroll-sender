@@ -85,14 +85,18 @@ RP_EMAIL_NAME="Отправка расчетных листков"
 ```
 
 ---
+## 🛠 Deploy
+* [Linux](deploy/linux)
+* [Docker](deploy/docker) `docker build -f deploy/docker/Dockerfile -t payroll-sender .`
+* [Windows](deploy/windows/readme.md)
+
 
 ## 💻 Технологии
 
 - Vanilla JavaScript (ES6+)
 - HTML5 / CSS3
-- XMLHttpRequest для прогресса загрузки (можно заменить на `fetch`)
 - Современные браузеры
-- Любой backend, поддерживающий API endpoints
+- python FastAPI
 
 ---
 

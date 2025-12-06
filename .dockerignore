@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.log
+.git/
+deploy/docker/
+demo/
+requirements-dev.txt
