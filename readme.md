@@ -1,6 +1,6 @@
 # Парсиг и отправка расчетных листков
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.txt)
 [![GitHub stars](https://img.shields.io/github/stars/cloud65/payroll-sender)](https://github.com/cloud65/payroll-sender/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/cloud65/payroll-sender)](https://github.com/cloud65/payroll-sender/issues)
 [![GitHub last commit](https://img.shields.io/github/last-commit/cloud65/payroll-sender)](https://github.com/cloud65/payroll-sender/commits/master)

@@ -9,3 +9,5 @@ isort
 black
 autoflake
 flake8
+pytest
+httpx

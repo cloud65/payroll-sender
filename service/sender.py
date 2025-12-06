@@ -16,6 +16,8 @@ password = getenv("RP_EMAIL_PASSWORD")
 from_email = getenv("RP_EMAIL_FROM")
 sender_name = getenv("RP_EMAIL_NAME", "Отправка расчетных листков")
 
+is_test = getenv("TEST_EMAIL_SENDER", "0") == "1"
+
 
 class Sender:
 
@@ -46,6 +48,10 @@ class Sender:
         # HTML формат
         msg.set_content("Ваш почтовый клиент не поддерживает HTML.", subtype="plain")
         msg.add_alternative(report.html or "<p>Нет содержимого</p>", subtype="html")
+
+        if is_test:
+            print(f"Тестовая отправка письма на {report.email}")
+            return
 
         async with aiosmtplib.SMTP(
             hostname=self.smtp_host,
