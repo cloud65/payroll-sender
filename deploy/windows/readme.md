@@ -82,7 +82,28 @@ cache_dir = os.getenv("RP_CACHE_DIR", "./out")
 log_level = os.getenv("RP_LOG_LEVEL", "info")
 logging.info(f"Cache dir: {cache_dir}, Log level: {log_level}")
 
+if __name__ == "__main__":import logging
+import uvicorn
+from dotenv import load_dotenv
+import os
+
+# Загружаем .env
+load_dotenv()
+
+# Настройка логов
+logging.basicConfig(filename="payroll.log", level=logging.INFO)
+logging.info("Starting payroll-sender")
+
 if __name__ == "__main__":
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=8000,
+        log_level="info",
+        access_log=True,
+        # Обязательно, чтобы pythonw не терял логи
+        log_config=None
+    )
     uvicorn.run("main:app", host="0.0.0.0", port=8000)
 ```
 
