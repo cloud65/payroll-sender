@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Отправка отчетов получателям</title>
+  <link rel="stylesheet" type="text/css" href="/static/styles.css">
+  <script src="/static/script.js" defer></script>
+</head>
+<body>
+  <div id="overlay">
+      <img src="https://i.gifer.com/ZZ5H.gif" alt="Loading...">
+      Идет отправка...
+  </div>
+  <div class="card" style="display: flex; flex-direction: row; gap: 16px; padding: 16px; margin: auto;">
+    <div id="div-upload" class="hide-nonempty">
+      <div id="sendSuccess" style="color: green"></div>
+      <h2>Отправка отчетов получателям</h2>
+      <p class="muted">Выберите два файла и нажмите «Отправить».</p>
+      <form id="uploadForm">
+        <label for="report">Расчетные листки (формат .html)</label>
+        <input id="report" name="report" type="file" accept=".html,text/html">
+
+        <label for="employees">Список получателей (формат .txt)</label>
+        <input id="employees" name="employees" type="file" accept=".txt,text/plain">
+
+        <div class="files-list" id="filesList"></div>
+
+        <button id="sendBtn" type="submit" class="send-button">Обработать</button>
+
+        <div class="progress" aria-hidden="true" style="display:none" id="progressWrap">
+          <div class="bar" id="progressBar"></div>
+        </div>
+      </form>
+    </div>
+
+    <div id="employeesContent" class="hide-empty employees-content" data-count="0">
+      <div style="display:flex; justify-content: space-between;">
+        <a href="/api/v1/clear" class="btn-clear">
+          🗑️ Очистить
+        </a>
+        <div id="sendErrMsg" style="color: red; font-size: .7em"></div>
+        <button id="sendEmailBtn" class="send-button" style="margin:0"><span>📧</span>  Отправить</button>
+      </div>
+      <div class="splitter"></div>
+      <div class="button-panel">
+        <button id="checkAll" class="control-btn"><span>✅</span> Отметить</button>
+        <button id="uncheckAll" class="control-btn"><span>❌</span> Снять</button>
+        <button id="invertCheck" class="control-btn"><span>🔄</span> Инвертировать</button>
+      </div>
+      <div id="employeesContainer" style="height: 80vh;"  ></div>
+    </div>
+
+    <div id="htmlPreview"  data-count="0" class="hide-empty preview-block" >
+      <iframe id="htmlFrame" style="width:100%; height:calc(100% - 10px); border:1px solid #ccc;"></iframe>
+    </div>
+
+  </div>
+
+</body>
+</html>
