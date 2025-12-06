@@ -1,9 +1,9 @@
 # Парсиг и отправка расчетных листков
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/cloud65/report_parser)](https://github.com/cloud65/report_parser/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/cloud65/report_parser)](https://github.com/cloud65/report_parser/issues)
-[![GitHub last commit](https://img.shields.io/github/last-commit/cloud65/report_parser)](https://github.com/cloud65/report_parser/commits/master)
+[![GitHub stars](https://img.shields.io/github/stars/cloud65/payroll-sender)](https://github.com/cloud65/payroll-sender/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/cloud65/payroll-sender)](https://github.com/cloud65/payroll-sender/issues)
+[![GitHub last commit](https://img.shields.io/github/last-commit/cloud65/payroll-sender)](https://github.com/cloud65/payroll-sender/commits/master)
 
 Это веб-приложение для загрузки расчетных листков и списка сотрудников, просмотра отчетов в браузере и отправки выбранных отчетов по электронной почте.
 
@@ -42,7 +42,7 @@
 1. Клонируйте репозиторий:
 
 ```bash
-git clone https://github.com/cloud65/report_parser.git
+git clone https://github.com/cloud65/payroll-sender.git
 cd report_parser
 ```
 
@@ -85,14 +85,18 @@ RP_EMAIL_NAME="Отправка расчетных листков"
 ```
 
 ---
+## 🛠 Deploy
+* [Linux](deploy/linux)
+* [Docker](deploy/docker) `docker build -f deploy/docker/Dockerfile -t payroll-sender .`
+* [Windows](deploy/windows/readme.md)
+
 
 ## 💻 Технологии
 
 - Vanilla JavaScript (ES6+)
 - HTML5 / CSS3
-- XMLHttpRequest для прогресса загрузки (можно заменить на `fetch`)
 - Современные браузеры
-- Любой backend, поддерживающий API endpoints
+- python FastAPI
 
 ---
 
